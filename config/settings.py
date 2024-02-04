@@ -35,6 +35,8 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'api',
     'common',
+    'books',
+    'users',
 ]
 
 # after apps
