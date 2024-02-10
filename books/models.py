@@ -6,7 +6,8 @@ User = get_user_model()
 
 
 class Book(models.Model):
-    book_id = models.PositiveIntegerField(verbose_name='id Книги', primary_key=True)
+    """Модель книги"""
+    book_id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='Название', max_length=100)
     author = models.CharField(verbose_name='Автор', max_length=100)
     publication_year = models.PositiveIntegerField('Год публикации', blank=True)
@@ -27,7 +28,8 @@ class Book(models.Model):
 
 
 class Review(models.Model):
-    review_id = models.PositiveIntegerField('id Отзыва', primary_key=True)
+    """Модель отзыва"""
+    review_id = models.AutoField(primary_key=True)
     book = models.OneToOneField(
         to=Book, on_delete=models.CASCADE
     )

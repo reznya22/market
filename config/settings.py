@@ -29,6 +29,7 @@ INSTALLED_APPS += [
     'django_filters',
     'corsheaders',
     'djoser',
+    'phonenumber_field',
 ]
 
 # apps
