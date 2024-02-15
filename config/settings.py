@@ -38,6 +38,7 @@ INSTALLED_APPS += [
     'common',
     'books',
     'users',
+    'carts',
 ]
 
 # after apps

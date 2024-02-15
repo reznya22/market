@@ -14,7 +14,7 @@ class Book(models.Model):
     genre = models.CharField(verbose_name='Жанр', max_length=100)
     ISBN = models.PositiveBigIntegerField(verbose_name='ISBN', unique=True, blank=True)
     price = models.DecimalField(verbose_name='Цена', max_digits=5, decimal_places=2, null=True)
-    image = models.ImageField('Обложка', upload_to='images/')
+    image = models.ImageField('Обложка', upload_to='media/')
     description = models.TextField(verbose_name='Описание', max_length=500, blank=True)
     quantity_on_stock = models.PositiveIntegerField(verbose_name='Кол-во на складе', default=0)
 
@@ -24,7 +24,7 @@ class Book(models.Model):
         ordering = ('-title',)
 
     def __str__(self):
-        return f'{self.title} id {self.pk}'
+        return f'{self.title}'
 
 
 class Review(models.Model):
@@ -37,14 +37,14 @@ class Review(models.Model):
         to=User, on_delete=models.CASCADE
     )
     rating = models.FloatField(
-        verbose_name='Автор',
+        verbose_name='Рейтинг',
         validators=[MinValueValidator(0.0), MaxValueValidator(5.0)]
     )
     review_text = models.TextField(verbose_name='Текст отзыва', max_length=500)
-    data = models.DateField(verbose_name='Дата', auto_now=True)
+    data = models.DateTimeField(verbose_name='Дата', auto_now=True)
 
     class Meta:
-        verbose_name = 'Отзывы'
+        verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
         ordering = ('-data',)
 
