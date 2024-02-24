@@ -7,6 +7,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_id', 'user', 'order_date', 'order_status', 'total_price',)
     list_display_links = ('order_id', 'user', 'order_date',)
 
+
     search_fields = ('user', 'order_date', 'order_id',)
 
 

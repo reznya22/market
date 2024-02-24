@@ -36,15 +36,21 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     'api',
     'common',
-    'books',
     'users',
+    'books',
     'carts',
 ]
+
+# Custom user model
+AUTH_USER_MODEL = 'users.User'
+# Custom backend
+AUTHENTICATION_BACKENDS = ('users.backends.AuthBackend',)
 
 # after apps
 INSTALLED_APPS += [
     'drf_spectacular',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 #####################
 # DJANGO REST FRAMEWORK
 #####################
@@ -161,7 +168,7 @@ CSRF_COOKIE_SECURE = False
 #####################
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Market',
-        'DESCRIPTION': 'Call Helper',
+    'DESCRIPTION': 'Book market',
     'VERSION': '1.0.0',
 
     'SERVE_PERMISSIONS': [

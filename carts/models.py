@@ -1,8 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 from books.models import Book
-
-User = get_user_model()
+from users.models.users import User
 
 
 class Order(models.Model):
