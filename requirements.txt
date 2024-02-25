@@ -9,6 +9,7 @@ Django==4.2
 django-cors-headers==4.3.1
 django-environ==0.11.2
 django-filter==23.5
+django-phonenumber-field==7.3.0
 django-templated-mail==1.1.1
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.1
@@ -19,6 +20,7 @@ inflection==0.5.1
 jsonschema==4.21.1
 jsonschema-specifications==2023.12.1
 oauthlib==3.2.2
+phonenumbers==8.13.30
 pillow==10.2.0
 psycopg2-binary==2.9.9
 pycparser==2.21
