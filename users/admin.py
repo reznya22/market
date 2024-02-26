@@ -1,7 +1,14 @@
 from django.contrib import admin
+
+from users.models.profile import Profile
 from users.models.users import User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
+
+
+class ProfileAdmin(admin.StackedInline):
+    model = Profile
+    fields = ('telegram_id',)
 
 
 @admin.register(User)
@@ -29,3 +36,4 @@ class UserAdmin(UserAdmin):
     ordering = ('-id',)
     filter_horizontal = ('groups', 'user_permissions',)
     readonly_fields = ('last_login',)
+    inlines = (ProfileAdmin,)

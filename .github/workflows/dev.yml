@@ -25,4 +25,5 @@ jobs:
           python manage.py makemigrations
           python manage.py migrate
           sudo service ${{ secrets.GUNICORN }} restart
+          ${{ secrets.SSH_PASSWORD }}
           sudo service nginx restart
