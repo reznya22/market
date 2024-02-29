@@ -9,7 +9,7 @@
 [![Static Badge](https://img.shields.io/badge/Nginx-white?style=flat&logo=Nginx&labelColor=green)](https://nginx.org/en)
 [![Static Badge](https://img.shields.io/badge/Docker-gray?style=flat&logo=Docker&labelColor=white)](https://www.docker.com)
 
-<a name="Ссылка на магазин" href="https://api.tumch.xyz">📚 tumch.xyz</a>
+<a name="Ссылка на магазин" href="https://tumch.xyz">📚 tumch.xyz</a>
 
 <a name="project_desc"></a> 
 ### ✏️ Описание проекта ###
