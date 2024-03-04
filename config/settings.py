@@ -177,7 +177,6 @@ SPECTACULAR_SETTINGS = {
 
     'SERVE_AUTHENTICATION': [
         'rest_framework.authentication.BasicAuthentication',
-
     ],
 
     'SWAGGER_UI_SETTINGS': {

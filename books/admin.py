@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from books.models import Book, Review
+from books.models import Book, Review, Genre
 
 
 @admin.register(Book)
@@ -21,3 +21,11 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display_links = ('book', 'user', 'review_text', 'data',)
 
     search_fields = ('book', 'user', 'data',)
+
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name',)
+    list_display_links = ('id', 'name',)
+
+    search_fields = ('id', 'name',)

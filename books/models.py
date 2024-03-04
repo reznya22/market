@@ -4,16 +4,29 @@ from django.db import models
 from users.models.users import User
 
 
+class Genre(models.Model):
+    """Модель жанра"""
+    name = models.CharField(verbose_name='Жанр', max_length=50)
+
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
+
+
 class Book(models.Model):
     """Модель книги"""
     book_id = models.AutoField(primary_key=True)
     title = models.CharField(verbose_name='Название', max_length=100)
     author = models.CharField(verbose_name='Автор', max_length=100)
     publication_year = models.PositiveIntegerField('Год публикации', blank=True)
-    genre = models.CharField(verbose_name='Жанр', max_length=100)
+    genre = models.ForeignKey(to=Genre, on_delete=models.CASCADE)
     ISBN = models.PositiveBigIntegerField(verbose_name='ISBN', unique=True, blank=True)
     price = models.DecimalField(verbose_name='Цена', max_digits=5, decimal_places=2, null=True)
-    image = models.ImageField('Обложка', upload_to='media/')
+    image = models.ImageField('Обложка', upload_to='%Y/%m/%d')
     description = models.TextField(verbose_name='Описание', max_length=500, blank=True)
     quantity_on_stock = models.PositiveIntegerField(verbose_name='Кол-во на складе', default=0)
 
