@@ -13,43 +13,36 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default=' ').split(' ')
 
-# base
+
 INSTALLED_APPS = [
+    # base
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
-
-# packages
-INSTALLED_APPS += [
+    # packages
     'rest_framework',
     'django_filters',
     'corsheaders',
     'djoser',
     'phonenumber_field',
-]
-
-# apps
-INSTALLED_APPS += [
+    # apps
     'api',
     'common',
     'users',
     'books',
     'carts',
+    # after apps
+    'drf_spectacular',
 ]
 
 # Custom user model
 AUTH_USER_MODEL = 'users.User'
+
 # Custom backend
 AUTHENTICATION_BACKENDS = ('users.backends.AuthBackend',)
-
-# after apps
-INSTALLED_APPS += [
-    'drf_spectacular',
-]
 
 
 MIDDLEWARE = [
@@ -63,7 +56,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'config.urls'
+
 
 TEMPLATES = [
     {
@@ -83,6 +78,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# --------------------------- DATABASE ---------------------------------
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -97,6 +94,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# ----------------------------------------------------------------------
+
+
+# ------------------------ PASSWORD VALIDATORS -------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -113,12 +115,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# ----------------------------------------------------------------------
+
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#####################
-# DJANGO REST FRAMEWORK
-#####################
+# ----------------------- DJANGO REST FRAMEWORK ------------------------
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',),
@@ -139,33 +143,41 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'common.pagination.BasePagination',
 }
 
-#####################
-# LOCALIZATION
-#####################
+# ----------------------------------------------------------------------
+
+
+# --------------------------- LOCALIZATION -----------------------------
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-#####################
-# STATIC AND MEDIA
-#####################
+# ----------------------------------------------------------------------
+
+
+# ------------------------- STATIC AND MEDIA ---------------------------
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-#####################
-# CORS HEADERS
-#####################
+# ----------------------------------------------------------------------
+
+
+# --------------------------- CORS HEADERS -----------------------------
+
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CSRF_COOKIE_SECURE = False
 
-#####################
-# DRF SPECTACULAR
-#####################
+# ----------------------------------------------------------------------
+
+
+# ------------------------- DRF SPECTACULAR ----------------------------
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Market',
     'DESCRIPTION': 'Book market',
@@ -197,9 +209,11 @@ SPECTACULAR_SETTINGS = {
     # 'DISABLE_ERRORS_AND_WARNINGS': True,
 }
 
-#####################
-# DJOSER
-#####################
+# ----------------------------------------------------------------------
+
+
+# ---------------------------- DJOSER AND JWT --------------------------
+
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
@@ -232,3 +246,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=1),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
 }
+
+# ----------------------------------------------------------------------

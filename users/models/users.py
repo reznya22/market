@@ -15,9 +15,10 @@ class User(AbstractUser):
     )
     email = models.EmailField('Почта', unique=True, null=True, blank=True)
     phone_number = PhoneNumberField('Телефон', unique=True, null=True, blank=True)
-    object = CustomUserManager()
     USERNAME_FIELD = 'username'
-    # REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']
+
+    objects = CustomUserManager()
 
     class Meta:
         verbose_name = 'Пользователь'
