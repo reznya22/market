@@ -5,7 +5,8 @@ from rest_framework.exceptions import ParseError
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, phone_number=None, email=None, password=None, username=None, **extra_fields):
+    def _create_user(self, phone_number=None, email=None, password=None,
+                     username=None, **extra_fields):
         if not (email or phone_number or username):
             raise ParseError('Укажите email или телефон')
 
@@ -28,7 +29,8 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, phone_number=None, email=None, password=None, username=None, **extra_fields):
+    def create_user(self, phone_number=None, email=None, password=None,
+                    username=None, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_active', True)
@@ -37,7 +39,8 @@ class CustomUserManager(BaseUserManager):
             phone_number, email, password, username, **extra_fields
         )
 
-    def create_superuser(self, phone_number=None, email=None, password=None, username=None, **extra_fields):
+    def create_superuser(self, phone_number=None, email=None, password=None,
+                         username=None, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_active', True)

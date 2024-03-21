@@ -1,12 +1,9 @@
-import pdb
 from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework import generics
-from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT
-from rest_framework.views import APIView
 
 from users.serializers.api import users as user_s
 
@@ -15,7 +12,8 @@ User = get_user_model()
 
 
 @extend_schema_view(
-    post=extend_schema(summary='Регистрация пользователя', tags=['Аутентификация & Авторизация']),
+    post=extend_schema(summary='Регистрация пользователя',
+                       tags=['Аутентификация & Авторизация']),
 )
 class RegistrationView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -28,12 +26,13 @@ class RegistrationView(generics.CreateAPIView):
         request=user_s.ChangePasswordSerializer,
         summary='Смена пароля', tags=['Аутентификация & Авторизация']),
 )
-class ChangePasswordView(GenericAPIView):
+class ChangePasswordView(generics.GenericAPIView):
     serializer_class = user_s.ChangePasswordSerializer
 
     def post(self, request):
         user = request.user
-        serializer = user_s.ChangePasswordSerializer(instance=user, data=request.data)
+        serializer = user_s.ChangePasswordSerializer(
+            instance=user, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=HTTP_204_NO_CONTENT)
@@ -41,10 +40,13 @@ class ChangePasswordView(GenericAPIView):
 
 @extend_schema_view(
     get=extend_schema(summary='Профиль пользователя', tags=['Пользователи']),
-    put=extend_schema(summary='Изменить профиль пользователя', tags=['Пользователи']),
-    patch=extend_schema(summary='Частично изменить профиль пользователя', tags=['Пользователи']),
+    put=extend_schema(summary='Изменить профиль пользователя',
+                      tags=['Пользователи']),
+    patch=extend_schema(summary='Частично изменить профиль пользователя',
+                        tags=['Пользователи']),
 )
 class MeView(generics.RetrieveUpdateAPIView):
+    """Get or update your profile"""
     queryset = User.objects.all()
     http_method_names = ('get', 'patch')
 
