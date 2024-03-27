@@ -6,8 +6,16 @@ User = get_user_model()
 
 
 class DateMixin(models.Model):
-    created_at = models.DateTimeField('Created at', null=True, blank=False)
-    updated_at = models.DateTimeField('Updated at', null=True, blank=False)
+    created_at = models.DateTimeField(
+        verbose_name='Created at',
+        null=True,
+        blank=False
+    )
+    updated_at = models.DateTimeField(
+        verbose_name='Updated at',
+        null=True,
+        blank=False
+    )
 
     class Meta:
         abstract = True
@@ -21,11 +29,19 @@ class DateMixin(models.Model):
 
 class InfoMixin(DateMixin):
     created_by = models.ForeignKey(
-        User, models.SET_NULL, 'created_%(app_label)s_%(class)s',
-        verbose_name='Created by', null=True)
+        to=User,
+        on_delete=models.SET_NULL,
+        related_name='created_%(app_label)s_%(class)s',
+        verbose_name='Created by',
+        null=True
+    )
     updated_by = models.ForeignKey(
-        User, models.SET_NULL, 'updated_%(app_label)s_%(class)s',
-        verbose_name='Updated by', null=True)
+        to=User,
+        on_delete=models.SET_NULL,
+        related_name='updated_%(app_label)s_%(class)s',
+        verbose_name='Updated by',
+        null=True
+    )
 
     class Meta:
         abstract = True

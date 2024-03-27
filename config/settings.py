@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 import environ
 
-
+# region environment
 root = environ.Path(__file__) - 2
 env = environ.Env()
 environ.Env.read_env(env.str(root(), '.env'))
@@ -12,7 +12,7 @@ BASE_DIR = root()
 SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default=' ').split(' ')
-
+# endregion
 
 INSTALLED_APPS = [
     # base
@@ -79,7 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# --------------------------- DATABASE ---------------------------------
+# region DATABASE
 
 DATABASES = {
     'default': {
@@ -96,10 +96,10 @@ DATABASES = {
     }
 }
 
-# ----------------------------------------------------------------------
+# endregion
 
 
-# ------------------------ PASSWORD VALIDATORS -------------------------
+# region PASSWORD_VALIDATORS
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -116,13 +116,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ----------------------------------------------------------------------
+# endregion
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# ----------------------- DJANGO REST FRAMEWORK ------------------------
+# region DJANGO_REST_FRAMEWORK
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -139,45 +139,47 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FileUploadParser',
     ],
-    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    # 'DEFAULT_FILTER_BACKENDS': [
+    # 'django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'common.pagination.BasePagination',
 }
 
-# ----------------------------------------------------------------------
+# endregion
 
 
-# --------------------------- LOCALIZATION -----------------------------
+# region LOCALIZATION
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# ----------------------------------------------------------------------
+# endregion
 
 
-# ------------------------- STATIC AND MEDIA ---------------------------
+# region STATIC_AND_MEDIA
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# ----------------------------------------------------------------------
+# endregion
 
 
-# --------------------------- CORS HEADERS -----------------------------
+
+# region CORS_HEADERS
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CSRF_COOKIE_SECURE = False
 
-# ----------------------------------------------------------------------
+# endregion
 
 
-# ------------------------- DRF SPECTACULAR ----------------------------
+# region DRF_SPECTACULAR
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Market',
@@ -210,10 +212,10 @@ SPECTACULAR_SETTINGS = {
     # 'DISABLE_ERRORS_AND_WARNINGS': True,
 }
 
-# ----------------------------------------------------------------------
+# endregion
 
 
-# ---------------------------- DJOSER AND JWT --------------------------
+# region DJOSER_AND_JWT
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
@@ -248,4 +250,4 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),
 }
 
-# ----------------------------------------------------------------------
+# endregion

@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from books.models import Book
-from books.serializers.nested import reviews
+from books.models import Book, FavoriteBook
+from books.serializers.api import reviews
 
 
 class BookListSerializer(serializers.ModelSerializer):
@@ -20,9 +20,10 @@ class BookListSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    reviews = reviews.ReviewListSerializer(many=True)
+    reviews = reviews.ReviewSerializer(many=True)
 
     class Meta:
+        model = Book
         fields = (
             'book_id',
             'title',
@@ -37,4 +38,23 @@ class BookSerializer(serializers.ModelSerializer):
             'rating',
             'reviews',
         )
-        model = Book
+
+
+class FavoriteBookSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FavoriteBook
+        fields = (
+            'book',
+            'user',
+        )
+        read_only_fields = (
+            'user',
+        )
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        validated_data['user'] = user
+        obj = FavoriteBook.objects.create(**validated_data)
+        return obj
+
